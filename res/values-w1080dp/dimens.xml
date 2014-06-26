@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="home_port_width">90dp</dimen>
+    <dimen name="home_port_height">100dp</dimen>
+    <dimen name="back_port_width">1100dp</dimen>
+    <dimen name="back_port_height">100dp</dimen>
+    <dimen name="menu_port_width">90dp</dimen>
+    <dimen name="menu_port_height">100dp</dimen>
+</resources>
