@@ -31,7 +31,7 @@ public class Registry {
                 String path = body.getString("path");
                 Intent intent = null;
                 if (path.endsWith(".pdf")) {
-                    bus.sendLocal(Constant.ADDR_PLAYER_PDF_MU, message.body(), null);
+                    bus.sendLocal(Constant.ADDR_PLAYER_PDF_JZ, message.body(), null);
                     return;
                 } else {
                     Toast.makeText(ctx, "不支持" + path, Toast.LENGTH_LONG).show();
