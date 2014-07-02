@@ -16,6 +16,14 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
 </dependency>
 ```
 
+```yaml
+--- # @drive.player.pdf.jz
+path: sample.pdf
+--- # @drive.player.pdf.mu
+path: sample.pdf
+...
+```
+
 ```java
 Intent intent = new Intent(ctx, MuPDFActivity.class);
 intent.putExtra("msg", Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1));
