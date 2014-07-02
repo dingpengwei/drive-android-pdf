@@ -15,6 +15,9 @@ import com.google.inject.Singleton;
  */
 public class PdfModule extends AbstractModule {
 
+    @Inject
+    static Registry registry;
+
     @Override
     protected void configure() {
         bind(Binder.class).asEagerSingleton();
@@ -27,7 +30,7 @@ public class PdfModule extends AbstractModule {
             busProvider.get().subscribe("drive.svg", new MessageHandler<JsonObject>() {
                 @Override
                 public void handle(Message<JsonObject> message) {
-                    Registry.subscribe();
+                    registry.subscribe();
                 }
             });
         }

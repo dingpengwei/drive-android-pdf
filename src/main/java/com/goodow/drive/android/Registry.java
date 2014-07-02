@@ -16,11 +16,11 @@ import com.google.inject.Inject;
  */
 public class Registry {
     @Inject
-    private static Context ctx;
+    private Context ctx;
     @Inject
-    private static Bus bus;
+    private Bus bus;
 
-    public static void subscribe() {
+    public void subscribe() {
         bus.subscribeLocal(Constant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
