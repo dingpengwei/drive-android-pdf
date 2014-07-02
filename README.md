@@ -27,7 +27,7 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
 <activity android:name="com.goodow.drive.android.pdf.PdfPlayer" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 ```
 
-```yaml
+```yml
 --- # @drive.player.pdf.jz
 path: sample.pdf
 --- # @drive.player.pdf.mu

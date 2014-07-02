@@ -5,10 +5,8 @@ import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.channel.Message;
 import com.goodow.realtime.channel.MessageHandler;
 import com.goodow.realtime.json.JsonObject;
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
+import com.goodow.realtime.store.Store;
+import com.google.inject.*;
 
 /**
  * Created by dpw on 7/2/14.
@@ -18,6 +16,12 @@ public class PdfModule extends AbstractModule {
     @Inject
     static Registry registry;
 
+
+    @Provides
+    @Singleton
+    Bus provideBus(Store store) {
+        return store.getBus();
+    }
     @Override
     protected void configure() {
         bind(Binder.class).asEagerSingleton();
