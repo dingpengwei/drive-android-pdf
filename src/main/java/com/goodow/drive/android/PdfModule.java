@@ -20,8 +20,6 @@ import java.util.logging.Logger;
  * Created by dpw on 7/2/14.
  */
 public class PdfModule extends AbstractModule {
-    private static final String SERVER = "ldh.goodow.com:1986";
-    private static final String URL = "ws://" + SERVER + "/channel/websocket";
 
     @Inject
     static Registry registry;
@@ -31,25 +29,6 @@ public class PdfModule extends AbstractModule {
         bind(Binder.class).asEagerSingleton();
     }
 
-
-    static {
-        AndroidPlatform.register();
-        // adb shell setprop log.tag.JavaWebSocket DEBUG
-        Logger.getLogger(JavaWebSocket.class.getName()).setLevel(Level.ALL);
-    }
-
-    @Provides
-    @Singleton
-    Bus provideBus(Store store) {
-        return store.getBus();
-    }
-
-    @Provides
-    @Singleton
-    Store provideStore(Provider<Context> contextProvider) {
-        return new StoreImpl(URL, Json.createObject().set(WebSocketBus.SESSION, DeviceInformationTools
-                .getLocalMacAddressFromWifiInfo(contextProvider.get())));
-    }
     @Singleton
     public static class Binder {
         @Inject

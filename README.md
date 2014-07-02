@@ -19,24 +19,32 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
   <type>aar</type>
 </dependency>
 ```
-
 **Configure it in AndroidManifest.xml**.
 ```xml
-<meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.PdfModule" />
+<meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.DriveAndroidModule,com.goodow.drive.android.PdfModule" />
 <activity android:name="com.artifex.mupdf.MuPDFActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 <activity android:name="com.goodow.drive.android.pdf.PdfPlayer" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 ```
-
+**Control protocol**.
 ```yml
---- # @drive.player.pdf.jz
+--- # @drive.player.pdf.jz 播放PDF
 path: sample.pdf
---- # @drive.player.pdf.mu
+--- # @drive.player.pdf.mu 播放PDF
 path: sample.pdf
+...
+
+--- # @drive.player 播放器
+path: sample.pdf # 路径 
+zoomTo: 3.0 # 指定缩放值, 基准是原始尺寸
+zoomBy: 0.4 # 缩放至=当前缩放值*该缩放倍数 (0, .inf)
+page: &page # 分页
+  goTo: 9 # 跳转至该页, [1, .inf)
+  move: 2 # 翻页, 负数向前, 正数向后
 ...
 ```
 
 ```java
 Intent intent = new Intent(ctx, PdfPlayer.class);
-intent.putExtra("msg", Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1));
+intent.putExtra("msg", Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf"));
 context.startActivity(intent);
 ```
