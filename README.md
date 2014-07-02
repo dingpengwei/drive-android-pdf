@@ -36,7 +36,7 @@ path: sample.pdf
 ```
 
 ```java
-Intent intent = new Intent(ctx, MuPDFActivity.class);
+Intent intent = new Intent(ctx, PdfPlayer.class);
 intent.putExtra("msg", Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1));
 context.startActivity(intent);
 ```
