@@ -23,6 +23,12 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
 </dependency>
 ```
 
+```xml
+<meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.PdfModule" />
+<activity android:name="com.artifex.mupdf.MuPDFActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+<activity android:name="com.goodow.drive.android.pdf.PdfPlayer" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+```
+
 ```yaml
 --- # @drive.player.pdf.jz
 path: sample.pdf
