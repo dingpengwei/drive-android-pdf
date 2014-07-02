@@ -37,11 +37,9 @@ import roboguice.inject.InjectView;
  * @updateDate 2013 2013-12-4 上午10:48:34
  * @version V1.0
  */
-@ContentView(R.layout.activity_pdf)
 public class PdfPlayer extends BaseActivity implements OnClickListener, OnLoadCompleteListener,
         OnPageChangeListener, OnDrawListener {
-    @InjectView(R.id.pdfView)
-    private PDFView pdfView = null;
+    private PDFView pdfView;
     private float currentScale = 2.4f;
     private int currentPage = 0;
     private Registration controlHandler;
@@ -90,6 +88,8 @@ public class PdfPlayer extends BaseActivity implements OnClickListener, OnLoadCo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pdf);
+        pdfView = (PDFView) findViewById(R.id.pdfView);
         this.buildPdfView(this.getIntent());
     }
 
