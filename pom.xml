@@ -10,7 +10,7 @@
     <groupId>com.goodow.drive.android</groupId>
     <artifactId>drive-android-pdf</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>apk</packaging>
+    <packaging>aar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
