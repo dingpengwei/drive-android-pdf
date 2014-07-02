@@ -9,7 +9,7 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
 </dependency>
 
 <dependency>
-  <groupId>com.goodow.drive.android</groupId>
+  <groupId>com.goodow.drive</groupId>
   <artifactId>drive-android-pdf</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <type>aar</type>
