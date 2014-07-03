@@ -44,7 +44,8 @@
         <dependency>
             <groupId>com.joanzapata.pdfview</groupId>
             <artifactId>android-pdfview</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.2</version>
+            <type>apklib</type>
         </dependency>
         <dependency>
             <groupId>com.google.android</groupId>
@@ -87,34 +88,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-      <dependency>
-        <groupId>com.joanzapata.pdfview</groupId>
-        <artifactId>vudroid</artifactId>
-        <version>1.0.2</version>
-        <classifier>x86</classifier>
-        <type>so</type>
-      </dependency>
-      <dependency>
-        <groupId>com.joanzapata.pdfview</groupId>
-        <artifactId>vudroid</artifactId>
-        <version>1.0.2</version>
-        <classifier>mips</classifier>
-        <type>so</type>
-      </dependency>
-      <dependency>
-        <groupId>com.joanzapata.pdfview</groupId>
-        <artifactId>vudroid</artifactId>
-        <version>1.0.2</version>
-        <classifier>armeabi</classifier>
-        <type>so</type>
-      </dependency>
-      <dependency>
-        <groupId>com.joanzapata.pdfview</groupId>
-        <artifactId>vudroid</artifactId>
-        <version>1.0.2</version>
-        <classifier>armeabi-v7a</classifier>
-        <type>so</type>
-      </dependency>
       <dependency>
         <groupId>com.artifex.mupdf</groupId>
         <artifactId>mupdf</artifactId>
