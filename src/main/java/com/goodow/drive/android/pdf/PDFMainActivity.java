@@ -38,6 +38,7 @@ public class PDFMainActivity extends BaseActivity {
 
         }
 
-        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1), null);
+//        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1), null);
+        bus.sendLocal("drive.player.pdf.mu",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1),null);
     }
 }

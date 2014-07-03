@@ -18,47 +18,48 @@ import com.google.inject.Provider;
  */
 public class Registry {
     @Inject
-    private Provider<Context> ctx;
+    private Context ctx;
     @Inject
     private Bus bus;
 
     public void subscribe() {
-        bus.subscribe(Constant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
-            @Override
-            public void handle(Message<JsonObject> message) {
-                JsonObject body = message.body();
-                if (!body.has("path")) {
-                    return;
-                }
-                String path = body.getString("path");
-                Intent intent = null;
-                if (path.endsWith(".pdf")) {
-                    bus.sendLocal(Constant.ADDR_PLAYER_PDF_JZ, message.body(), null);
-                    return;
-                } else {
-                    Toast.makeText(ctx.get(), "不支持" + path, Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-        });
-
+      bus.subscribe(Constant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
+        @Override
+        public void handle(Message<JsonObject> message) {
+          JsonObject body = message.body();
+          if (!body.has("path")) {
+            return;
+          }
+          String path = body.getString("path");
+          Intent intent = null;
+          if (path.endsWith(".pdf")) {
+            bus.sendLocal(Constant.ADDR_PLAYER_PDF_JZ, message.body(), null);
+            return;
+          } else {
+            Toast.makeText(ctx, "不支持" + path, Toast.LENGTH_LONG).show();
+            return;
+          }
+        }
+      });
         bus.subscribeLocal(Constant.ADDR_PLAYER_PDF_JZ, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
-                Intent intent = new Intent(ctx.get(), PdfPlayer.class);
+                Intent intent = new Intent(ctx, PdfPlayer.class);
                 intent.putExtra("msg", message.body());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                ctx.get().startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//             　intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(intent);
             }
         });
 
-        bus.subscribe(Constant.ADDR_PLAYER_PDF_MU, new MessageHandler<JsonObject>() {
+        bus.subscribeLocal(Constant.ADDR_PLAYER_PDF_MU, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
-                Intent intent = new Intent(ctx.get(), MuPDFActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(ctx, MuPDFActivity.class);
                 intent.putExtra("msg", message.body());
-                ctx.get().startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctx.startActivity(intent);
             }
         });
     }

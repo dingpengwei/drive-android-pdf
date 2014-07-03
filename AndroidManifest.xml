@@ -24,7 +24,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.DriveAndroidModule,com.goodow.drive.android.PdfModule" />
+        <meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.DriveAndroidPdfModule,com.goodow.drive.android.PdfModule" />
         <activity
             android:name="com.goodow.drive.android.pdf.PDFMainActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"

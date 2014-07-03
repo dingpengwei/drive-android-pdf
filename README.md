@@ -44,7 +44,6 @@ page: &page # 分页
 ```
 
 ```java
-Intent intent = new Intent(ctx, PdfPlayer.class);
-intent.putExtra("msg", Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf"));
-context.startActivity(intent);
+bus.sendLocal("drive.player.pdf.jz",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1),null);
+bus.sendLocal("drive.player.pdf.mu",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1),null);
 ```
