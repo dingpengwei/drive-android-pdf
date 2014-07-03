@@ -1,6 +1,10 @@
 package com.goodow.drive.android;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import android.content.Context;
+
 import com.goodow.realtime.android.AndroidPlatform;
 import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.channel.impl.WebSocketBus;
@@ -13,11 +17,8 @@ import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 public class DriveAndroidModule extends AbstractModule {
-    private static final String SERVER = "ldh.goodow.com:1986";
+    private static final String SERVER = "realtime.goodow.com:1986";
     private static final String URL = "ws://" + SERVER + "/channel/websocket";
 
   static {
