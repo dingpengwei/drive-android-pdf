@@ -46,8 +46,7 @@ public class Registry {
             public void handle(Message<JsonObject> message) {
                 Intent intent = new Intent(ctx, PdfPlayer.class);
                 intent.putExtra("msg", message.body());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//             　intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
             }
         });
@@ -57,8 +56,7 @@ public class Registry {
             public void handle(Message<JsonObject> message) {
                 Intent intent = new Intent(ctx, MuPDFActivity.class);
                 intent.putExtra("msg", message.body());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//              intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
             }
         });
