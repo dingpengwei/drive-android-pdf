@@ -26,7 +26,7 @@ public class PDFMainActivity extends BaseActivity {
         try {
             InputStream open = this.getAssets().open("ReferenceCard.pdf");
             OutputStream outputStream = new FileOutputStream(new File("/mnt/sdcard/ReferenceCard.pdf"));
-            int len = 0;
+            int len;
             byte[] buffer = new byte[1024];
             while((len = open.read(buffer)) != -1){
                 outputStream.write(buffer,0,len);
@@ -37,8 +37,6 @@ public class PDFMainActivity extends BaseActivity {
         }catch (Exception e){
 
         }
-
-//        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1), null);
-        bus.sendLocal("drive.player.pdf.mu",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1),null);
+        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/git.pdf"), null);
     }
 }

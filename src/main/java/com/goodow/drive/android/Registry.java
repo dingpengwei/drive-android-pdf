@@ -23,6 +23,27 @@ public class Registry {
     private Bus bus;
 
     public void subscribe() {
+        bus.subscribe("drive/" + DeviceInformationTools.getLocalMacAddressFromWifiInfo(ctx),
+                new MessageHandler<JsonObject>() {
+                    @Override
+                    public void handle(final Message<JsonObject> message) {
+                        JsonObject body = message.body();
+                        String path = body.getString("path");
+                        if (path != null && Constant.ADDRESS_SET.contains(path)) {
+                            JsonObject msg = body.getObject("msg");
+                            bus.sendLocal(path, msg, new MessageHandler<JsonObject>() {
+                                @Override
+                                public void handle(Message<JsonObject> messageInner) {
+                                    JsonObject bodyInner = messageInner.body();
+                                    message.reply(bodyInner, null);
+                                }
+                            });
+                        } else {
+                            Toast.makeText(ctx, "address:" + path + "不存在", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
       bus.subscribe(Constant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
         @Override
         public void handle(Message<JsonObject> message) {
@@ -31,7 +52,6 @@ public class Registry {
             return;
           }
           String path = body.getString("path");
-          Intent intent = null;
           if (path.endsWith(".pdf")) {
             bus.sendLocal(Constant.ADDR_PLAYER_PDF_JZ, message.body(), null);
             return;

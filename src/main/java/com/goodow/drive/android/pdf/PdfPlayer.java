@@ -1,21 +1,5 @@
 package com.goodow.drive.android.pdf;
 
-import com.goodow.drive.android.Constant;
-import com.goodow.drive.android.BaseActivity;
-import com.goodow.drive.android.DeviceInformationTools;
-import com.goodow.drive.android.R;
-import com.goodow.realtime.channel.Message;
-import com.goodow.realtime.channel.MessageHandler;
-import com.goodow.realtime.core.Registration;
-import com.goodow.realtime.json.JsonObject;
-
-import com.joanzapata.pdfview.PDFView;
-import com.joanzapata.pdfview.listener.OnDrawListener;
-import com.joanzapata.pdfview.listener.OnLoadCompleteListener;
-import com.joanzapata.pdfview.listener.OnPageChangeListener;
-
-import java.io.File;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
@@ -25,8 +9,20 @@ import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
+import com.goodow.drive.android.BaseActivity;
+import com.goodow.drive.android.Constant;
+import com.goodow.drive.android.DeviceInformationTools;
+import com.goodow.drive.android.R;
+import com.goodow.realtime.channel.Message;
+import com.goodow.realtime.channel.MessageHandler;
+import com.goodow.realtime.core.Registration;
+import com.goodow.realtime.json.JsonObject;
+import com.joanzapata.pdfview.PDFView;
+import com.joanzapata.pdfview.listener.OnDrawListener;
+import com.joanzapata.pdfview.listener.OnLoadCompleteListener;
+import com.joanzapata.pdfview.listener.OnPageChangeListener;
+
+import java.io.File;
 
 /**
  * @title: SamplePDF.java
@@ -49,8 +45,11 @@ public class PdfPlayer extends BaseActivity implements OnClickListener, OnLoadCo
      */
     @Override
     public void loadComplete(int nbPages) {
-        pdfView.zoomCenteredTo(currentScale, new PointF(DeviceInformationTools
-                .getScreenWidth(PdfPlayer.this) / 2, 0));
+        float pdfViewWidth = pdfView.getOptimalPageWidth();
+        int screenWidth = DeviceInformationTools.getScreenWidth(this);
+        float fitScale = (float) screenWidth / pdfViewWidth;
+        pdfView.setScaleX(fitScale);
+        pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(PdfPlayer.this) / 2, 0));
         pdfView.loadPages();
     }
 
@@ -174,6 +173,34 @@ public class PdfPlayer extends BaseActivity implements OnClickListener, OnLoadCo
                                 }
                             }
                         }
+
+                        if(body.has("fit")){
+                            int fit = (int)body.getNumber("fit");
+                            float pdfViewWidth = pdfView.getOptimalPageWidth();
+                            int screenWidth = DeviceInformationTools.getScreenWidth(PdfPlayer.this);
+                            float fitScaleX = (float) screenWidth / pdfViewWidth;
+                            switch(fit){
+                                case 0:
+                                    pdfView.setScaleX(fitScaleX);
+//                                    pdfView.setScaleY(fitScaleX);
+                                    pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(PdfPlayer.this) / 2, 0));
+                                    pdfView.loadPages();
+                                    break;
+                                case 1:
+                                    pdfView.setScaleX(fitScaleX);
+                                    pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(PdfPlayer.this) / 2, 0));
+                                    pdfView.loadPages();
+                                    break;
+                                case 2:
+//                                    pdfView.setScaleY(fitScaleX);
+//                                    pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(PdfPlayer.this) / 2, 0));
+//                                    pdfView.loadPages();
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                        }
                     }
                 });
     }
@@ -192,8 +219,7 @@ public class PdfPlayer extends BaseActivity implements OnClickListener, OnLoadCo
         JsonObject jsonObject = (JsonObject) intent.getExtras().getSerializable("msg");
         File newFile = new File(jsonObject.getString("path"));
         if (newFile.exists()) {
-            pdfView.fromFile(newFile).defaultPage(1).onLoad(this).onDraw(this).onPageChange(this).onLoad(
-                    this).load();
+            pdfView.fromFile(newFile).defaultPage(1).onLoad(this).onDraw(this).onPageChange(this).onLoad( this).load();
         } else {
             Toast.makeText(this, this.getString(R.string.pdf_file_no_exist), Toast.LENGTH_SHORT).show();
         }

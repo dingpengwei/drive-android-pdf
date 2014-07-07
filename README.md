@@ -21,7 +21,7 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
 ```
 **Configure it in AndroidManifest.xml**.
 ```xml
-<meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.DriveAndroidModule,com.goodow.drive.android.PdfModule" />
+<meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.DriveAndroidPdfModule,com.goodow.drive.android.PdfModule" />
 <activity android:name="com.artifex.mupdf.MuPDFActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 <activity android:name="com.goodow.drive.android.pdf.PdfPlayer" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 ```
@@ -33,17 +33,32 @@ path: sample.pdf
 path: sample.pdf
 ...
 
---- # @drive.player 播放器
-path: sample.pdf # 路径 
-zoomTo: 3.0 # 指定缩放值, 基准是原始尺寸
+--- # @drive.player PDF播放器
+path: /mnt/sdcard/sample.pdf # pdf文件路径
+zoomTo: 3.0 # 指定缩放值, 基准是图片原始尺寸
 zoomBy: 0.4 # 缩放至=当前缩放值*该缩放倍数 (0, .inf)
+fit: 0 # 0表示适配屏幕(图片在屏幕上完全显示), 1表示宽度完全显示, 2表示高度完全显示
 page: &page # 分页
   goTo: 9 # 跳转至该页, [1, .inf)
   move: 2 # 翻页, 负数向前, 正数向后
 ...
 ```
 
+```javaScript
+http://realtimeplayground.goodow.com/bus.html#server=http://realtime.goodow.com:1986/channel
+open:
+bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player.pdf.jz","msg":{"path":"/mnt/sdcard/maven.pdf"}})
+zoom:
+bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"zoomTo":"2.0"}})
+bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"zoomBy":0.5}})
+page:
+bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"page":{"goTo":2}}})
+bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"page":{"move":-1}}})
+fit:
+bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"fit":0}})
+```
+
 ```java
-bus.sendLocal("drive.player.pdf.jz",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1),null);
-bus.sendLocal("drive.player.pdf.mu",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf").set("play", 1),null);
+bus.sendLocal("drive.player.pdf.jz",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf"),null);
+bus.sendLocal("drive.player.pdf.mu",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf"),null);
 ```
