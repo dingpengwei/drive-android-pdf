@@ -43,9 +43,8 @@ page: &page # 分页
   move: 2 # 翻页, 负数向前, 正数向后
 ...
 ```
-
+**Call in instruction**.
 ```javaScript
-call in instruction
 http://realtimeplayground.goodow.com/bus.html#server=http://realtime.goodow.com:1986/channel
 open file:
 bus.send("drive/your-mac",{"path":"drive.player.pdf.jz","msg":{"path":"/mnt/sdcard/ReferenceCard.pdf"}})
