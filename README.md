@@ -45,20 +45,16 @@ page: &page # 分页
 ```
 
 ```javaScript
+call in instruction
 http://realtimeplayground.goodow.com/bus.html#server=http://realtime.goodow.com:1986/channel
-open:
-bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player.pdf.jz","msg":{"path":"/mnt/sdcard/maven.pdf"}})
+open file:
+bus.send("drive/your-mac",{"path":"drive.player.pdf.jz","msg":{"path":"/mnt/sdcard/ReferenceCard.pdf"}})
 zoom:
-bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"zoomTo":"2.0"}})
-bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"zoomBy":0.5}})
+bus.send("drive/your-mac",{"path":"drive.player","msg":{"zoomTo":"2.0"}})
+bus.send("drive/your-mac",{"path":"drive.player","msg":{"zoomBy":0.5}})
 page:
-bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"page":{"goTo":2}}})
-bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"page":{"move":-1}}})
+bus.send("drive/your-mac",{"path":"drive.player","msg":{"page":{"goTo":2}}})
+bus.send("drive/your-mac",{"path":"drive.player","msg":{"page":{"move":-1}}})
 fit:
-bus.send("drive/00:e0:5c:02:e7:43",{"path":"drive.player","msg":{"fit":0}})
-```
-
-```java
-bus.sendLocal("drive.player.pdf.jz",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf"),null);
-bus.sendLocal("drive.player.pdf.mu",Json.createObject().set("path", "/mnt/sdcard/ReferenceCard.pdf"),null);
+bus.send("drive/your-mac",{"path":"drive.player","msg":{"fit":0}})
 ```
