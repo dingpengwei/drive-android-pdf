@@ -65,16 +65,16 @@ public class MyJzPdfActivity extends PDFBaseActivity implements OnClickListener,
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.bu_pdf_pre_page){
+        if(id == R.id.bt_pdf_pre_page){
             bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
         }
-        if(id == R.id.bu_pdf_next_page){
+        if(id == R.id.bt_pdf_next_page){
             bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", 1)), null);
         }
-        if(id == R.id.bu_pdf_max){
+        if(id == R.id.bt_pdf_max){
             bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 1.2), null);
         }
-        if(id == R.id.bu_pdf_min){
+        if(id == R.id.bt_pdf_min){
             bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 0.8), null);
         }
         if(id == R.id.iv_back){
