@@ -18,7 +18,7 @@ import roboguice.activity.RoboActivity;
  * @updateDate 2013 2013-12-4 上午11:33:07
  * @version V1.0
  */
-public class BaseActivity extends RoboActivity {
+public class PDFBaseActivity extends RoboActivity {
 
   @Inject
   public Bus bus;

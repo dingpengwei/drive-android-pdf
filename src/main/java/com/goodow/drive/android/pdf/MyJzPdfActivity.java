@@ -8,11 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.goodow.drive.android.BaseActivity;
-import com.goodow.drive.android.Constant;
-import com.goodow.drive.android.DeviceInformationTools;
+import com.goodow.drive.android.PDFBaseActivity;
+import com.goodow.drive.android.PDFConstant;
+import com.goodow.drive.android.PDFDeviceInformationTools;
 import com.goodow.drive.android.R;
 import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.channel.Message;
@@ -37,7 +36,7 @@ import java.io.File;
  * @updateDate 2013 2013-12-4 上午10:48:34
  * @version V1.0
  */
-public class MyJzPdfActivity extends BaseActivity implements OnClickListener, OnLoadCompleteListener,
+public class MyJzPdfActivity extends PDFBaseActivity implements OnClickListener, OnLoadCompleteListener,
         OnPageChangeListener, OnDrawListener {
     private PDFView pdfView;
     private float currentScale = 2.4f;
@@ -51,10 +50,10 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
     @Override
     public void loadComplete(int nbPages) {
         float pdfViewWidth = pdfView.getOptimalPageWidth();
-        int screenWidth = DeviceInformationTools.getScreenWidth(this);
+        int screenWidth = PDFDeviceInformationTools.getScreenWidth(this);
         float fitScale = (float) screenWidth / pdfViewWidth;
         pdfView.setScaleX(fitScale);
-        pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(MyJzPdfActivity.this) / 2, 0));
+        pdfView.zoomCenteredTo(1.0f, new PointF(PDFDeviceInformationTools.getScreenWidth(MyJzPdfActivity.this) / 2, 0));
         pdfView.loadPages();
     }
 
@@ -67,26 +66,26 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.bu_pdf_pre_page){
-            bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
         }
         if(id == R.id.bu_pdf_next_page){
-            bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", 1)), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", 1)), null);
         }
         if(id == R.id.bu_pdf_max){
-            bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("zoomBy", 1.2), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 1.2), null);
         }
         if(id == R.id.bu_pdf_min){
-            bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("zoomBy", 0.8), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 0.8), null);
         }
         if(id == R.id.iv_back){
-            bus.sendLocal(Constant.ADDR_DB,null,null);
+            bus.sendLocal(PDFConstant.ADDR_DB,null,null);
             this.finish();
         }
     }
 
     @Override
     public void onBackPressed() {
-        bus.sendLocal(Constant.ADDR_DB, null, null);
+        bus.sendLocal(PDFConstant.ADDR_DB, null, null);
         super.onBackPressed();
     }
 
@@ -149,7 +148,7 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
     protected void onResume() {
         super.onResume();
         controlHandler =
-                bus.subscribeLocal(Constant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
+                bus.subscribeLocal(PDFConstant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
                     @Override
                     public void handle(Message<JsonObject> message) {
                         JsonObject body = message.body();
@@ -160,7 +159,7 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
                         if (body.has("zoomTo")) {
                             if (pdfView != null) {
                                 currentScale = (float) body.getNumber("zoomTo");
-                                pdfView.zoomCenteredTo(currentScale, new PointF(DeviceInformationTools
+                                pdfView.zoomCenteredTo(currentScale, new PointF(PDFDeviceInformationTools
                                         .getScreenWidth(MyJzPdfActivity.this) / 2, 0));
                                 pdfView.loadPages();
                             }
@@ -169,7 +168,7 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
                             if (pdfView != null && (float) body.getNumber("zoomBy") * currentScale < 10
                                     && (float) body.getNumber("zoomBy") * currentScale > 0.1) {
                                 currentScale = (float) body.getNumber("zoomBy") * currentScale;
-                                pdfView.zoomCenteredTo(currentScale, new PointF(DeviceInformationTools
+                                pdfView.zoomCenteredTo(currentScale, new PointF(PDFDeviceInformationTools
                                         .getScreenWidth(MyJzPdfActivity.this) / 2, 0));
                                 pdfView.loadPages();
                             }
@@ -183,7 +182,7 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
                                  */
                                 if (pdfView != null) {
                                     pdfView.jumpTo((int) pdfControl.getNumber("goTo"));
-                                    pdfView.zoomCenteredTo(currentScale, new PointF(DeviceInformationTools
+                                    pdfView.zoomCenteredTo(currentScale, new PointF(PDFDeviceInformationTools
                                             .getScreenWidth(MyJzPdfActivity.this) / 2, 0));
                                     pdfView.loadPages();
                                 }
@@ -194,7 +193,7 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
                                  */
                                 if (pdfView != null) {
                                     pdfView.jumpTo(pdfView.getCurrentPage() + 1 + (int) pdfControl.getNumber("move"));
-                                    pdfView.zoomCenteredTo(currentScale, new PointF(DeviceInformationTools
+                                    pdfView.zoomCenteredTo(currentScale, new PointF(PDFDeviceInformationTools
                                             .getScreenWidth(MyJzPdfActivity.this) / 2, 0));
                                     pdfView.loadPages();
                                 }
@@ -204,18 +203,18 @@ public class MyJzPdfActivity extends BaseActivity implements OnClickListener, On
                         if(body.has("fit")){
                             int fit = (int)body.getNumber("fit");
                             float pdfViewWidth = pdfView.getOptimalPageWidth();
-                            int screenWidth = DeviceInformationTools.getScreenWidth(MyJzPdfActivity.this);
+                            int screenWidth = PDFDeviceInformationTools.getScreenWidth(MyJzPdfActivity.this);
                             float fitScaleX = (float) screenWidth / pdfViewWidth;
                             switch(fit){
                                 case 0:
                                     pdfView.setScaleX(fitScaleX);
 //                                    pdfView.setScaleY(fitScaleX);
-                                    pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(MyJzPdfActivity.this) / 2, 0));
+                                    pdfView.zoomCenteredTo(1.0f, new PointF(PDFDeviceInformationTools.getScreenWidth(MyJzPdfActivity.this) / 2, 0));
                                     pdfView.loadPages();
                                     break;
                                 case 1:
                                     pdfView.setScaleX(fitScaleX);
-                                    pdfView.zoomCenteredTo(1.0f, new PointF(DeviceInformationTools.getScreenWidth(MyJzPdfActivity.this) / 2, 0));
+                                    pdfView.zoomCenteredTo(1.0f, new PointF(PDFDeviceInformationTools.getScreenWidth(MyJzPdfActivity.this) / 2, 0));
                                     pdfView.loadPages();
                                     break;
                                 case 2:

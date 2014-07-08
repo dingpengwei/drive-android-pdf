@@ -17,20 +17,20 @@ import java.io.File;
 /**
  * Created by dpw on 6/26/14.
  */
-public class Registry {
+public class PDFRegistry {
     @Inject
     private Context ctx;
     @Inject
     private Bus bus;
 
     public void subscribe() {
-        bus.subscribe("drive/" + DeviceInformationTools.getLocalMacAddressFromWifiInfo(ctx),
+        bus.subscribe("drive/" + PDFDeviceInformationTools.getLocalMacAddressFromWifiInfo(ctx),
                 new MessageHandler<JsonObject>() {
                     @Override
                     public void handle(final Message<JsonObject> message) {
                         JsonObject body = message.body();
                         String path = body.getString("path");
-                        if (path != null && Constant.ADDRESS_SET.contains(path)) {
+                        if (path != null && PDFConstant.ADDRESS_SET.contains(path)) {
                             JsonObject msg = body.getObject("msg");
                             bus.sendLocal(path, msg, new MessageHandler<JsonObject>() {
                                 @Override
@@ -45,7 +45,7 @@ public class Registry {
                     }
                 });
 
-      bus.subscribe(Constant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
+      bus.subscribe(PDFConstant.ADDR_PLAYER, new MessageHandler<JsonObject>() {
         @Override
         public void handle(Message<JsonObject> message) {
           JsonObject body = message.body();
@@ -54,7 +54,7 @@ public class Registry {
           }
           String path = body.getString("path");
           if (path.endsWith(".pdf")) {
-            bus.sendLocal(Constant.ADDR_PLAYER_PDF_JZ, message.body(), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER_PDF_JZ, message.body(), null);
             return;
           } else {
             Toast.makeText(ctx, "不支持" + path, Toast.LENGTH_LONG).show();
@@ -62,7 +62,7 @@ public class Registry {
           }
         }
       });
-        bus.subscribeLocal(Constant.ADDR_PLAYER_PDF_JZ, new MessageHandler<JsonObject>() {
+        bus.subscribeLocal(PDFConstant.ADDR_PLAYER_PDF_JZ, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
                 Intent intent = new Intent(ctx, MyJzPdfActivity.class);
@@ -72,7 +72,7 @@ public class Registry {
             }
         });
 
-        bus.subscribeLocal(Constant.ADDR_PLAYER_PDF_MU, new MessageHandler<JsonObject>() {
+        bus.subscribeLocal(PDFConstant.ADDR_PLAYER_PDF_MU, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
                 try {

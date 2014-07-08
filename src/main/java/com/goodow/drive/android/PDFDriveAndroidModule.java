@@ -17,7 +17,7 @@ import com.google.inject.Provider;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
-public class DriveAndroidPdfModule extends AbstractModule {
+public class PDFDriveAndroidModule extends AbstractModule {
     private static final String SERVER = "realtime.goodow.com:1986";
     private static final String URL = "ws://" + SERVER + "/channel/websocket";
 
@@ -40,7 +40,7 @@ public class DriveAndroidPdfModule extends AbstractModule {
   @Provides
   @Singleton
   Store provideStore(Provider<Context> contextProvider) {
-      return new StoreImpl(URL, Json.createObject().set(WebSocketBus.SESSION, DeviceInformationTools
+      return new StoreImpl(URL, Json.createObject().set(WebSocketBus.SESSION, PDFDeviceInformationTools
               .getLocalMacAddressFromWifiInfo(contextProvider.get())));
   }
 }

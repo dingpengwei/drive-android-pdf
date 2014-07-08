@@ -3,7 +3,7 @@ package com.goodow.drive.android;
 import java.util.Arrays;
 import java.util.List;
 
-public interface Constant {
+public interface PDFConstant {
 
   String DRIVE = "drive";
   String ADDR_PLAYER = DRIVE + ".player";

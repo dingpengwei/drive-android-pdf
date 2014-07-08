@@ -1,9 +1,9 @@
 package com.goodow.drive.android.pdf;
 
 import android.os.Bundle;
-import com.goodow.drive.android.BaseActivity;
-import com.goodow.drive.android.Constant;
-import com.goodow.drive.android.Registry;
+import com.goodow.drive.android.PDFBaseActivity;
+import com.goodow.drive.android.PDFConstant;
+import com.goodow.drive.android.PDFRegistry;
 import com.goodow.realtime.json.Json;
 import com.google.inject.Inject;
 
@@ -15,9 +15,9 @@ import java.io.OutputStream;
 /**
  * Created by dpw on 6/26/14.
  */
-public class PDFMainActivity extends BaseActivity {
+public class PDFMainActivity extends PDFBaseActivity {
     @Inject
-    private Registry registry;
+    private PDFRegistry registry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class PDFMainActivity extends BaseActivity {
         }catch (Exception e){
 
         }
-        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/ref.pdf"), null);
+        bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/ref.pdf"), null);
         this.finish();
     }
 }

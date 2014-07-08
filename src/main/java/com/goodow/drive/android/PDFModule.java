@@ -11,7 +11,7 @@ import com.google.inject.Singleton;
 /**
  * Created by dpw on 7/2/14.
  */
-public class PdfModule extends AbstractModule {
+public class PDFModule extends AbstractModule {
 
 
     @Override
@@ -22,7 +22,7 @@ public class PdfModule extends AbstractModule {
     @Singleton
     public static class Binder {
         @Inject
-        public Binder(final Provider<Bus> busProvider, final Provider<Context> context , Registry registry) {
+        public Binder(final Provider<Bus> busProvider, final Provider<Context> context , PDFRegistry registry) {
           registry.subscribe();
         }
     }

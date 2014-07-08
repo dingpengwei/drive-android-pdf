@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 /**
  * Created by dpw on 5/22/14.
  */
-public class DeviceInformationTools {
+public class PDFDeviceInformationTools {
 
   /*
    * 获取屏幕高度
