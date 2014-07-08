@@ -37,6 +37,7 @@ public class PDFMainActivity extends BaseActivity {
         }catch (Exception e){
 
         }
-        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/git.pdf"), null);
+        bus.sendLocal(Constant.ADDR_PLAYER, Json.createObject().set("path", "/mnt/sdcard/ref.pdf"), null);
+        this.finish();
     }
 }

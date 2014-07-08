@@ -2,16 +2,17 @@ package com.goodow.drive.android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.Toast;
-
-import com.artifex.mupdf.MuPDFActivity;
-import com.goodow.drive.android.pdf.PdfPlayer;
+import com.goodow.drive.android.pdf.MyJzPdfActivity;
+import com.goodow.drive.android.pdf.MyMuPdfActivity;
 import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.channel.Message;
 import com.goodow.realtime.channel.MessageHandler;
 import com.goodow.realtime.json.JsonObject;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+
+import java.io.File;
 
 /**
  * Created by dpw on 6/26/14.
@@ -64,7 +65,7 @@ public class Registry {
         bus.subscribeLocal(Constant.ADDR_PLAYER_PDF_JZ, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
-                Intent intent = new Intent(ctx, PdfPlayer.class);
+                Intent intent = new Intent(ctx, MyJzPdfActivity.class);
                 intent.putExtra("msg", message.body());
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
                 ctx.startActivity(intent);
@@ -74,10 +75,18 @@ public class Registry {
         bus.subscribeLocal(Constant.ADDR_PLAYER_PDF_MU, new MessageHandler<JsonObject>() {
             @Override
             public void handle(Message<JsonObject> message) {
-                Intent intent = new Intent(ctx, MuPDFActivity.class);
-                intent.putExtra("msg", message.body());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                ctx.startActivity(intent);
+                try {
+                    Intent intent = new Intent(ctx, MyMuPdfActivity.class);
+                    //intent.putExtra("msg", message.body());
+                    System.out.println(Uri.parse("file:/" + message.body().getString("path")).toString());
+                    File path = new File(message.body().getString("path"));
+                    intent.setData(Uri.parse(path.getAbsolutePath()));
+                intent.setAction(Intent.ACTION_VIEW);
+                    // intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ctx.startActivity(intent);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
     }

@@ -7,5 +7,5 @@
         android:clickable="true"
         android:layout_marginLeft="@dimen/video_back_marginLeft"
         android:layout_marginTop="@dimen/video_back_marginTop"
-        android:src="@drawable/common_selector_back" >
+        android:src="@drawable/pdf_selector_back" >
 </ImageView>

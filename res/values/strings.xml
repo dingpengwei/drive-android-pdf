@@ -15,5 +15,9 @@
     <string name="pdf_searching">Searching#8230;</string>
     <string name="pdf_no_further_occurences_found">No further occurrences found</string>
     <string name="pdf_progress_title">Generateing pdf#8230;</string>
+    <string name="pdf_pre_page">上一页</string>
+    <string name="pdf_next_page">下一页</string>
+    <string name="pdf_max">放大</string>
+    <string name="pdf_min">缩小</string>
 
 </resources>
