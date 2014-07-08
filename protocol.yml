@@ -1,0 +1,15 @@
+--- # @drive.player.pdf.jz 播放PDF
+path: sample.pdf
+--- # @drive.player.pdf.mu 播放PDF
+path: sample.pdf
+...
+
+--- # @drive.player PDF播放器
+path: /mnt/sdcard/sample.pdf # pdf文件路径
+zoomTo: 3.0 # 指定缩放值, 基准是图片原始尺寸
+zoomBy: 0.4 # 缩放至=当前缩放值*该缩放倍数 (0, .inf)
+fit: 0 # 0表示适配屏幕(图片在屏幕上完全显示), 1表示宽度完全显示, 2表示高度完全显示
+page: &page # 分页
+  goTo: 9 # 跳转至该页, [1, .inf)
+  move: 2 # 翻页, 负数向前, 正数向后
+...

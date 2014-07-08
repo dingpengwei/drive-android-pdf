@@ -22,8 +22,6 @@ drive-android-pdf [![Build Status](https://travis-ci.org/dingpengwei/drive-andro
 **Configure it in AndroidManifest.xml**.
 ```xml
 <meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.PDFDriveAndroidModule,com.goodow.drive.android.PDFModule" />
-<activity android:name="com.goodow.drive.android.pdf.MyJzPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
-<activity android:name="com.goodow.drive.android.pdf.MyMuPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 ```
 **Control protocol**.
 ```yml
@@ -56,4 +54,9 @@ bus.send("drive/your-mac",{"path":"drive.player","msg":{"page":{"goTo":2}}})
 bus.send("drive/your-mac",{"path":"drive.player","msg":{"page":{"move":-1}}})
 fit:
 bus.send("drive/your-mac",{"path":"drive.player","msg":{"fit":0}})
+```
+
+**Call in java**.
+```java
+DriveAndroidJZPdfView.fromFile(File).defaultPage(1).onLoad(OnLoadCompleteListener).onDraw(OnDrawListener).onPageChange(OnPageChangeListener).load();
 ```

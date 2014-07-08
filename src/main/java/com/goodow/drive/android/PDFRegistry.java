@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
-import com.goodow.drive.android.pdf.MyJzPdfActivity;
 import com.goodow.drive.android.pdf.MyMuPdfActivity;
 import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.channel.Message;
@@ -62,15 +61,7 @@ public class PDFRegistry {
           }
         }
       });
-        bus.subscribeLocal(PDFConstant.ADDR_PLAYER_PDF_JZ, new MessageHandler<JsonObject>() {
-            @Override
-            public void handle(Message<JsonObject> message) {
-                Intent intent = new Intent(ctx, MyJzPdfActivity.class);
-                intent.putExtra("msg", message.body());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                ctx.startActivity(intent);
-            }
-        });
+
 
         bus.subscribeLocal(PDFConstant.ADDR_PLAYER_PDF_MU, new MessageHandler<JsonObject>() {
             @Override
