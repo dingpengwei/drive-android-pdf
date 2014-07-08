@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name_pdf">drive-pdf</string>
     <string name="pdf_pre_page">上一页</string>
     <string name="pdf_next_page">下一页</string>
     <string name="pdf_max">放大</string>
