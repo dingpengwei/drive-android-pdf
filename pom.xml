@@ -10,7 +10,7 @@
     <groupId>com.goodow.drive</groupId>
     <artifactId>drive-android-pdf</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>aar</packaging>
+    <packaging>apklib</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -100,6 +100,7 @@
                 <version>3.8.2</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <ndkArchitecture>x86 armeabi mips armeabi-v7a</ndkArchitecture>
                     <androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
                     <assetsDirectory>${project.basedir}/assets</assetsDirectory>
                     <resourceDirectory>${project.basedir}/res</resourceDirectory>
