@@ -10,7 +10,7 @@
     <groupId>com.goodow.drive</groupId>
     <artifactId>drive-android-pdf</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>apklib</packaging>
+    <packaging>apk</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -45,6 +45,12 @@
             <groupId>com.joanzapata.pdfview</groupId>
             <artifactId>android-pdfview</artifactId>
             <version>1.0.2</version>
+            <type>apklib</type>
+        </dependency>
+        <dependency>
+            <groupId>com.artifex.mupdfdemo</groupId>
+            <artifactId>mupdf</artifactId>
+            <version>2014.07.04</version>
             <type>apklib</type>
         </dependency>
         <dependency>

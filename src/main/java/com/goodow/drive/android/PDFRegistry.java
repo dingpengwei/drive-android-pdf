@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.widget.Toast;
-import com.goodow.drive.android.pdf.MyMuPdfActivity;
+import com.goodow.drive.android.pdf.DriveAndroidMuPdfActivity;
 import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.channel.Message;
 import com.goodow.realtime.channel.MessageHandler;
@@ -67,7 +67,7 @@ public class PDFRegistry {
             @Override
             public void handle(Message<JsonObject> message) {
                 try {
-                    Intent intent = new Intent(ctx, MyMuPdfActivity.class);
+                    Intent intent = new Intent(ctx, DriveAndroidMuPdfActivity.class);
                     //intent.putExtra("msg", message.body());
                     System.out.println(Uri.parse("file:/" + message.body().getString("path")).toString());
                     File path = new File(message.body().getString("path"));
