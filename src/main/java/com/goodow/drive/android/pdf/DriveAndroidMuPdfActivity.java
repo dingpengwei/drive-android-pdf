@@ -738,7 +738,6 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                  */
                 if (mDocView != null) {
                     mDocView.setDisplayedViewIndex((int) body.getNumber("goTo"));
-
                 }
             } else if (page.has("move")) {
                 /*
@@ -748,7 +747,6 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                     int offset = (mDocView.getDisplayedViewIndex() + (int) page.getNumber("move"));
                     mDocView.setDisplayedViewIndex(offset);
                 }
-
             }
         } else if (body.has("zoomTo")) {
               /*

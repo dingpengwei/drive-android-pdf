@@ -74,8 +74,7 @@ public class SimpleMuPdfActivity extends DriveAndroidMuPdfActivity implements Vi
             this.finish();
         }
         if(v.getId() == R.id.bt_pdf_pre_page){
-            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("fit", 1), null);
-//            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
         }
         if(v.getId() == R.id.bt_pdf_next_page){
             bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", 1)), null);
