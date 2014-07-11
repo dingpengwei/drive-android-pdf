@@ -14,7 +14,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Uri uri = Uri.parse("/mnt/sdcard/git.pdf");
-        Intent intent = new Intent(this,SimpleActivity.class);
+        Intent intent = new Intent(this,SimpleMuPdfActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(uri);
         this.startActivity(intent);

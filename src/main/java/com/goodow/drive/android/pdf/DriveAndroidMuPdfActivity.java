@@ -36,7 +36,6 @@ import roboguice.RoboGuice;
 import roboguice.activity.event.OnContentChangedEvent;
 import roboguice.activity.event.OnStopEvent;
 import roboguice.context.event.OnCreateEvent;
-import roboguice.context.event.OnDestroyEvent;
 import roboguice.event.EventManager;
 import roboguice.inject.RoboInjector;
 import roboguice.util.RoboContext;
@@ -517,33 +516,6 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        if (mFileName != null && mDocView != null) {
-            outState.putString("FileName", mFileName);
-
-            // Store current page in the prefs against the file name,
-            // so that we can pick it up each time the file is loaded
-            // Other info is needed only for screen-orientation change,
-            // so it can go in the bundle
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putInt("page"+mFileName, mDocView.getDisplayedViewIndex());
-            edit.commit();
-        }
-
-        if (!mButtonsVisible)
-            outState.putBoolean("ButtonsHidden", true);
-
-        if (mTopBarMode == TopBarMode.Search)
-            outState.putBoolean("SearchMode", true);
-
-        if (mReflow)
-            outState.putBoolean("ReflowMode", true);
-    }
-
-    @Override
     public Map<Key<?>, Object> getScopedObjectMap() {
         return scopedObjects;
     }
@@ -571,22 +543,11 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                         handleControlMessage(body);
                     }
                 });
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        if (mSearchTask != null)
-            mSearchTask.stop();
-
-        if (mFileName != null && mDocView != null) {
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putInt("page"+mFileName, mDocView.getDisplayedViewIndex());
-            edit.commit();
-        }
         controlHandler.unregister();
     }
 
@@ -603,15 +564,6 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
     @Override
     public void onDestroy() {
         super.onDestroy();
-        try {
-            eventManager.fire(new OnDestroyEvent<Activity>(this));
-        } finally {
-            try {
-                RoboGuice.destroyInjector(this);
-            } finally {
-                super.onDestroy();
-            }
-        }
     }
 
     private void setButtonEnabled(ImageButton button, boolean enabled) {
@@ -786,6 +738,7 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                  */
                 if (mDocView != null) {
                     mDocView.setDisplayedViewIndex((int) body.getNumber("goTo"));
+
                 }
             } else if (page.has("move")) {
                 /*
@@ -795,6 +748,7 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                     int offset = (mDocView.getDisplayedViewIndex() + (int) page.getNumber("move"));
                     mDocView.setDisplayedViewIndex(offset);
                 }
+
             }
         } else if (body.has("zoomTo")) {
               /*
@@ -813,24 +767,28 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                 currentScaleX = currentScaleX * (float) body.getNumber("zoomBy");
                 currentScaleY = currentScaleY * (float) body.getNumber("zoomBy");
                 mDocView.setScaleX(currentScaleX);
-                mDocView.setScaleX(currentScaleY);
+                mDocView.setScaleY(currentScaleY);
             }
         } else if(body.has("fit")){
             int fit = (int)body.getNumber("fit");
             if (mDocView != null) {
+                int measuredWidth = mDocView.getDisplayedView().getMeasuredWidth();
+                int measuredHeight = mDocView.getDisplayedView().getMeasuredHeight();
+                int screenWidth = PDFDeviceInformationTools.getScreenWidth(this);
+                int screenHeight = PDFDeviceInformationTools.getScreenHeight(this);
+
+                float fitScaleX = (float) screenWidth / measuredWidth;
+                float fitScaleY = (float) screenHeight / measuredHeight;
                 switch(fit){
                     case 0:
-
+                        mDocView.setScaleX(fitScaleX);
+                        mDocView.setScaleY(fitScaleY);
                         break;
                     case 1:
-                        int measuredWidth = mDocView.getDisplayedView().getMeasuredWidth();
-                        int screenWidth = PDFDeviceInformationTools.getScreenWidth(this);
-                        float fitScaleX = (float) screenWidth / measuredWidth;
                         mDocView.setScaleX(fitScaleX);
-                        System.out.println();
                         break;
                     case 2:
-
+                        mDocView.setScaleY(fitScaleY);
                         break;
                     default:
                         break;

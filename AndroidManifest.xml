@@ -36,7 +36,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="com.goodow.drive.android.pdf.SimpleActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        <activity android:name=".pdf.SimpleMuPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -45,6 +45,14 @@
             </intent-filter>
         </activity>
         <activity android:name="com.goodow.drive.android.pdf.DriveAndroidMuPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="application/vnd.ms-xpsdocument"/>
+                <data android:mimeType="application/xps"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.artifex.mupdfdemo.MuPDFActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>

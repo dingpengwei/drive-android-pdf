@@ -1,13 +1,13 @@
 package com.goodow.drive.android.pdf;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.Button;
 import com.goodow.drive.android.PDFConstant;
 import com.goodow.drive.android.R;
 import com.goodow.realtime.channel.Bus;
@@ -17,22 +17,23 @@ import com.google.inject.Inject;
 /**
  * Created by dpw on 7/8/14.
  */
-public class SimpleActivity extends DriveAndroidMuPdfActivity implements View.OnClickListener{
+public class SimpleMuPdfActivity extends DriveAndroidMuPdfActivity implements View.OnClickListener{
     @Inject
     private Bus bus;
     private WindowManager windowManager;
     private WindowManager.LayoutParams paramsBack;
     private WindowManager.LayoutParams paramsControllBar;
-    private View back;
+    private Button back;
     private View controllBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.windowManager = (WindowManager) this.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
-        this.back = new ImageButton(this);
-        this.back.setBackgroundResource(android.R.drawable.ic_btn_speak_now);
+        this.back = new Button(this);
+        ((Button)this.back).setText("后退");
         this.back.setOnClickListener(this);
         this.controllBar = this.getLayoutInflater().inflate(R.layout.demo,null);
         this.paramsBack = new WindowManager.LayoutParams();
@@ -41,13 +42,15 @@ public class SimpleActivity extends DriveAndroidMuPdfActivity implements View.On
         this.paramsBack.gravity = Gravity.LEFT | Gravity.TOP;
         this.paramsBack.type = WindowManager.LayoutParams.TYPE_PHONE;
         this.paramsBack.format = PixelFormat.RGBA_8888;
+        this.paramsBack.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 
         this.paramsControllBar = new WindowManager.LayoutParams();
-        this.paramsControllBar.width = this.paramsControllBar.WRAP_CONTENT;
-        this.paramsControllBar.height = this.paramsControllBar.WRAP_CONTENT;
+        this.paramsControllBar.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        this.paramsControllBar.height = WindowManager.LayoutParams.WRAP_CONTENT;
         this.paramsControllBar.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
         this.paramsControllBar.type = WindowManager.LayoutParams.TYPE_PHONE;
         this.paramsControllBar.format = PixelFormat.RGBA_8888;
+        this.paramsControllBar.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
     }
 
 
@@ -71,7 +74,8 @@ public class SimpleActivity extends DriveAndroidMuPdfActivity implements View.On
             this.finish();
         }
         if(v.getId() == R.id.bt_pdf_pre_page){
-            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
+            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("fit", 1), null);
+//            bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", -1)), null);
         }
         if(v.getId() == R.id.bt_pdf_next_page){
             bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("page", Json.createObject().set("move", 1)), null);
