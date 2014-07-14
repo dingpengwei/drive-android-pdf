@@ -213,7 +213,7 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                         Resources res = getResources();
                         AlertDialog alert = mAlertBuilder.create();
                         setTitle(String.format(res.getString(R.string.cannot_open_document_Reason), reason));
-                        alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
+                        alert.setButton(AlertDialog.BUTTON_POSITIVE, "解除",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         finish();
@@ -243,7 +243,7 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
         {
             AlertDialog alert = mAlertBuilder.create();
             alert.setTitle(R.string.cannot_open_document);
-            alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dismiss),
+            alert.setButton(AlertDialog.BUTTON_POSITIVE, "解除",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -271,7 +271,7 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
         AlertDialog alert = mAlertBuilder.create();
         alert.setTitle(R.string.enter_password);
         alert.setView(mPasswordView);
-        alert.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.okay),
+        alert.setButton(AlertDialog.BUTTON_POSITIVE, "确定",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         if (core.authenticatePassword(mPasswordView.getText().toString())) {
