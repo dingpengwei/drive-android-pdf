@@ -33,7 +33,7 @@ public class SimpleMuPdfActivity extends DriveAndroidMuPdfActivity implements Vi
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         this.windowManager = (WindowManager) this.getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         this.back = new Button(this);
-        ((Button)this.back).setText("后退");
+        this.back.setText("后退");
         this.back.setOnClickListener(this);
         this.controllBar = this.getLayoutInflater().inflate(R.layout.demo,null);
         this.paramsBack = new WindowManager.LayoutParams();
