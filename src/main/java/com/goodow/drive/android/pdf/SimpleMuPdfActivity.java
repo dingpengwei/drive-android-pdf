@@ -59,6 +59,7 @@ public class SimpleMuPdfActivity extends DriveAndroidMuPdfActivity implements Vi
         super.onResume();
         this.windowManager.addView(this.back, this.paramsBack);
         this.windowManager.addView(this.controllBar, this.paramsControllBar);
+        bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 1.2), null);
     }
 
     @Override
