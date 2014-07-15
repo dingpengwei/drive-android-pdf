@@ -152,7 +152,7 @@ public class DriveAndroidMuPdfActivity extends MuPDFActivity implements FilePick
                         is.read(buffer, 0, len);
                         is.close();
                     }
-                    catch (java.lang.OutOfMemoryError e) {
+                    catch (OutOfMemoryError e) {
                         System.out.println("Out of memory during buffer reading");
                         reason = e.toString();
                     }
