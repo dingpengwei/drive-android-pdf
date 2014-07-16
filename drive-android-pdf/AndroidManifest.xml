@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.goodow.drive.android" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"  package="com.goodow.drive.android" >
 
-    <!-- 访问Internet权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <!-- 往SDCard写入数据权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 查看网络状态权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -20,46 +15,8 @@
         android:minSdkVersion="12"
         android:maxSdkVersion="19"
         />
-    
     <application
-        android:allowBackup="true"
-        android:label="@string/demo_app_name_pdf">
+        android:allowBackup="true">
         <meta-data android:name="roboguice.modules" android:value="com.goodow.drive.android.PDFDriveAndroidModule,com.goodow.drive.android.PDFModule" />
-        <activity
-            android:name="com.goodow.drive.android.pdf.MainActivity"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-            android:launchMode="singleTask"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".pdf.SimpleMuPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="application/vnd.ms-xpsdocument"/>
-                <data android:mimeType="application/xps"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="com.goodow.drive.android.pdf.DriveAndroidMuPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="application/vnd.ms-xpsdocument"/>
-                <data android:mimeType="application/xps"/>
-            </intent-filter>
-        </activity>
-        <activity android:name="com.artifex.mupdfdemo.MuPDFActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="application/vnd.ms-xpsdocument"/>
-                <data android:mimeType="application/xps"/>
-            </intent-filter>
-        </activity>
      </application>
-
 </manifest>

@@ -1,4 +1,4 @@
-package com.goodow.drive.android.pdf;
+package com.goodow.drive.android.pdf.samples.demo;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import com.goodow.drive.android.PDFConstant;
-import com.goodow.drive.android.R;
+import com.goodow.drive.android.pdf.DriveAndroidMuPdfActivity;
 import com.goodow.realtime.channel.Bus;
 import com.goodow.realtime.json.Json;
 import com.google.inject.Inject;
@@ -59,7 +59,7 @@ public class SimpleMuPdfActivity extends DriveAndroidMuPdfActivity implements Vi
         super.onResume();
         this.windowManager.addView(this.back, this.paramsBack);
         this.windowManager.addView(this.controllBar, this.paramsControllBar);
-        bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 1.2), null);
+        bus.sendLocal(PDFConstant.ADDR_PLAYER, Json.createObject().set("zoomBy", 1.0), null);
     }
 
     @Override
