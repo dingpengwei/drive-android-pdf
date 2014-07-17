@@ -18,6 +18,31 @@
             <groupId>com.goodow.drive</groupId>
             <artifactId>drive-android-pdf</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <type>apklib</type>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <version>3.9.0-rc.2</version>
+                <configuration>
+                    <sdk>
+                        <platform>19</platform>
+                    </sdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

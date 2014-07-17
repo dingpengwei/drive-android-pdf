@@ -23,6 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.goodow.drive.android.pdf.samples.demo.SimpleMuPdfActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity android:name="com.goodow.drive.android.pdf.samples.demo.SimpleMuPdfActivity" android:configChanges="orientation|keyboardHidden" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
     </application>
 </manifest>
